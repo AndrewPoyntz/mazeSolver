@@ -1,0 +1,14 @@
+.wall {
+	background-color: #000;
+}
+.visited {
+	background-color:#c4e3f3;
+}
+
+table {
+	border-collapse: collapse;
+}
+td {
+	width:1em;
+	height:1em;
+}
