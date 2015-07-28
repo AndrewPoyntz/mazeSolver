@@ -4,6 +4,9 @@
 .visited {
 	background-color:#c4e3f3;
 }
+.best {
+	background-color:#b22222;
+}
 
 table {
 	border-collapse: collapse;

@@ -27,6 +27,9 @@ var maze = {
 				if (cell.visited) {
 					td.addClass('visited');
 				}
+				if (cell.bestRoute){
+					td.addClass('best');
+				}
 				tr.append(td);
 			}
 			table.append(tr);
@@ -135,6 +138,7 @@ var maze = {
 		$('#info').html('Moving, turn ' + maze.moveCounter);
 
 		if (maze.mazeSolved){
+			maze.showBestRoute();
 			$('#info').html('SOLVED!!');
 		}
 		if (maze.stuck){
@@ -144,6 +148,16 @@ var maze = {
 			maze.moveCounter++;
 			window.setTimeout(maze.solve, 30);
 		}
+	},
+	showBestRoute: function (){
+		var i, move, cell;
+		maze.data[maze.startPoint.row][maze.startPoint.column].bestRoute = true;
+		for (i=0; i < maze.history.length; i++){
+			move = maze.history[i];
+			cell = maze.data[move.row][move.column];
+			cell.bestRoute = true;
+		}
+		maze.draw();
 	}
 };
 
