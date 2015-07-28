@@ -102,7 +102,7 @@ var maze = {
 		return maze.history[maze.history.length-1];
 	},
 	goBackASpace: function (){
-		maze.currentPosition = maze.getLastSpace();;
+		maze.currentPosition = maze.getLastSpace();
 	},
 	history:[],
 	movePosition:function () {
@@ -134,15 +134,16 @@ var maze = {
 		maze.draw();
 	},
 	solve: function () {
+		var info = $('#info');
 		maze.movePosition();
-		$('#info').html('Moving, turn ' + maze.moveCounter);
+		info.html('Moving, turn ' + maze.moveCounter);
 
 		if (maze.mazeSolved){
 			maze.showBestRoute();
-			$('#info').html('SOLVED!!');
+			info.html('SOLVED!!');
 		}
 		if (maze.stuck){
-			$('#info').html('stuck, giving up :(');
+			info.html('stuck, giving up :(');
 		}
 		if (maze.moveCounter < 10000 && !maze.mazeSolved && !maze.stuck){
 			maze.moveCounter++;
