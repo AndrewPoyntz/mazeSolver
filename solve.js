@@ -4,7 +4,7 @@
 var maze = {
 	getMaze: function () {
 		$.ajax({
-			url: 'maze.json',
+			url: 'realMaze.json',
 			async:false,
 			success: function (data) {
 				maze.data = data;
@@ -93,14 +93,13 @@ var maze = {
 		}
 		return options;
 	},
-	getLastSpace:function (lastOrder) {
+	getLastSpace:function () {
 		maze.history.pop();
-		console.log(maze.history[maze.history.length-1])
+		//console.log(maze.history[maze.history.length-1]);
 		return maze.history[maze.history.length-1];
 	},
 	goBackASpace: function (){
-		var lastSpace = maze.getLastSpace();
-		maze.currentPosition = lastSpace;
+		maze.currentPosition = maze.getLastSpace();;
 	},
 	history:[],
 	movePosition:function () {
@@ -114,11 +113,11 @@ var maze = {
 		} else {
 			maze.stuckCount++;
 			if (maze.stuckCount < 50) { // if it takes more than 50 moves to find a space with options, we're too stuck :(
-				console.log('stuck :( going back 1 space & trying again');
+				//console.log('stuck :( going back 1 space & trying again');
 				maze.goBackASpace();
 				maze.movePosition();
 			} else {
-				console.log('too stuck, giving up :(');
+				//console.log('too stuck, giving up :(');
 				maze.stuck = true;
 			}
 		}
@@ -143,15 +142,15 @@ var maze = {
 		}
 		if (maze.moveCounter < 10000 && !maze.mazeSolved && !maze.stuck){
 			maze.moveCounter++;
-			window.setTimeout(maze.solve, 200);
+			window.setTimeout(maze.solve, 30);
 		}
 	}
-}
+};
 
 $(document).ready(function () {
 	var startPoint;
 	maze.getMaze();
-	startPoint = (maze.startPoint === null) ? maze.findStartPoint() : startPoint;
+	startPoint = (maze.startPoint === null) ? maze.findStartPoint() : maze.startPoint;
 	maze.currentPosition = startPoint;
 	maze.solve();
 });
